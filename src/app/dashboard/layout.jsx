@@ -1,6 +1,7 @@
 import Navbar from "@/components/dashboard/navbar/navbar";
 import Sidebar from "@/components/dashboard/sidebar/sidebar";
 import styles from "./dashboardLayout.module.css";
+import Footer from "@/components/dashboard/footer/footer";
 
 const DashboardLayout = ({ children }) => {
   return (
@@ -11,6 +12,7 @@ const DashboardLayout = ({ children }) => {
       <div className={styles.content}>
         <Navbar />
         {children}
+        <Footer />
       </div>
     </div>
   );
