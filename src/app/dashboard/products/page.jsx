@@ -4,6 +4,7 @@ import styles from "./products.module.css";
 import Pagination from "@/components/ui/pagination/pagination";
 import Search from "@/components/ui/search/search";
 import { fetchProducts } from "@/lib/data";
+import { deleteProduct } from "@/lib/actions";
 
 const ProductsPage = async ({ searchParams }) => {
   const q = searchParams?.q || "";
@@ -31,7 +32,7 @@ const ProductsPage = async ({ searchParams }) => {
         </thead>
         <tbody>
           {products.map((product) => (
-            <tr key={product._id}>
+            <tr key={product.id}>
               <td>
                 <div className={styles.product}>
                   <Image src={product.img || "/noproduct.jpg"} alt="" width={40} height={40} className={styles.productImage} />
@@ -47,8 +48,8 @@ const ProductsPage = async ({ searchParams }) => {
                   <Link href={`/dashboard/products/${product.id}`}>
                     <button className={`${styles.button} ${styles.view}`}>View</button>
                   </Link>
-                  <form>
-                    <input type="hidden" name="id" value={``} />
+                  <form action={deleteProduct}>
+                    <input type="hidden" name="id" value={product.id} />
                     <button className={`${styles.button} ${styles.delete}`}>Delete</button>
                   </form>
                 </div>

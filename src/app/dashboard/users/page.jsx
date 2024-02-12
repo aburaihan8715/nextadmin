@@ -4,6 +4,7 @@ import styles from "./users.module.css";
 import Search from "@/components/ui/search/search";
 import Pagination from "@/components/ui/pagination/pagination";
 import { fetchUsers } from "@/lib/data";
+import { deleteUser } from "@/lib/actions";
 
 const UsersPage = async ({ searchParams }) => {
   const q = searchParams?.q || "";
@@ -31,11 +32,11 @@ const UsersPage = async ({ searchParams }) => {
         </thead>
         <tbody>
           {users.map((user) => (
-            <tr key={user._id}>
+            <tr key={user.id}>
               <td>
                 <div className={styles.user}>
                   <Image src={user.img || "/noavatar.png"} alt="" width={40} height={40} className={styles.userImage} />
-                  {user.name}
+                  {user.username}
                 </div>
               </td>
               <td>{user.email}</td>
@@ -44,11 +45,11 @@ const UsersPage = async ({ searchParams }) => {
               <td>{user.isActive ? "Active" : "Passive"}</td>
               <td>
                 <div className={styles.buttons}>
-                  <Link href={`/dashboard/users/${user._id}`}>
+                  <Link href={`/dashboard/users/${user.id}`}>
                     <button className={`${styles.button} ${styles.view}`}>View</button>
                   </Link>
-                  <form>
-                    <input type="hidden" name="id" value={``} />
+                  <form action={deleteUser}>
+                    <input type="hidden" name="id" value={user.id} />
                     <button className={`${styles.button} ${styles.delete}`}>Delete</button>
                   </form>
                 </div>
